@@ -1,0 +1,30 @@
+#!/usr/bin/make -f
+
+# Prebuilt binaries from SDk/lib are packaged as-is; there is nothing to compile.
+DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
+PY_DIR := usr/lib/python3/dist-packages
+
+%:
+	dh $@
+
+override_dh_auto_configure override_dh_auto_build override_dh_auto_test:
+
+override_dh_auto_install:
+	# libsdk1
+	install -d debian/libsdk1/usr/lib/$(DEB_HOST_MULTIARCH)
+	install -m 644 SDk/lib/libsdk.so.1.0.0.0 debian/libsdk1/usr/lib/$(DEB_HOST_MULTIARCH)/
+	ln -sf libsdk.so.1.0.0.0 debian/libsdk1/usr/lib/$(DEB_HOST_MULTIARCH)/libsdk.so.1
+	# libsdk-dev
+	install -d debian/libsdk-dev/usr/include/sdk debian/libsdk-dev/usr/lib/$(DEB_HOST_MULTIARCH)
+	install -m 644 SDk/include/ISdk.h debian/libsdk-dev/usr/include/sdk/
+	ln -sf libsdk.so.1 debian/libsdk-dev/usr/lib/$(DEB_HOST_MULTIARCH)/libsdk.so
+	# python3-sample-sdk (drop the build-time RUNPATH; libsdk.so.1 is on the system path)
+	install -d debian/python3-sample-sdk/$(PY_DIR)
+	install -m 644 SDk/lib/sdk_module.cpython-310-*.so debian/python3-sample-sdk/$(PY_DIR)/
+	chrpath -d debian/python3-sample-sdk/$(PY_DIR)/sdk_module.cpython-310-*.so
+	# sample-pyqt-app
+	install -d debian/sample-pyqt-app/usr/share/sample-pyqt-app debian/sample-pyqt-app/usr/bin \
+	           debian/sample-pyqt-app/usr/share/applications
+	install -m 644 application/main.py debian/sample-pyqt-app/usr/share/sample-pyqt-app/
+	install -m 755 debian/sample-pyqt-app.sh debian/sample-pyqt-app/usr/bin/sample-pyqt-app
+	install -m 644 debian/sample-pyqt-app.desktop debian/sample-pyqt-app/usr/share/applications/

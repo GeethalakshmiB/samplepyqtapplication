@@ -1,0 +1,43 @@
+Source: sample-sdk
+Section: libs
+Priority: optional
+Maintainer: GeethalakshmiB <geethalakshmi.b@e-consystems.com>
+Build-Depends: debhelper-compat (= 13),
+               chrpath
+Standards-Version: 4.6.0
+Homepage: https://github.com/GeethalakshmiB/samplepyqtapplication
+Vcs-Git: https://github.com/GeethalakshmiB/samplepyqtapplication.git -b jammy
+Rules-Requires-Root: no
+
+Package: libsdk1
+Architecture: amd64
+Multi-Arch: same
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Sample SDK - runtime library
+ Prebuilt C++ SDK library exposing the ISdk interface, which reports
+ the SDK version.
+
+Package: libsdk-dev
+Section: libdevel
+Architecture: amd64
+Multi-Arch: same
+Depends: libsdk1 (= ${binary:Version}), ${misc:Depends}
+Description: Sample SDK - development files
+ Public interface header (ISdk.h) and linker symlink for building C++
+ applications against the Sample SDK.
+
+Package: python3-sample-sdk
+Section: python
+Architecture: amd64
+Depends: libsdk1 (= ${binary:Version}),
+         python3 (>= 3.10~), python3 (<< 3.11),
+         ${shlibs:Depends}, ${misc:Depends}
+Description: Sample SDK - Python 3 bindings
+ pybind11 module (sdk_module) giving Python access to the Sample SDK.
+
+Package: sample-pyqt-app
+Section: utils
+Architecture: all
+Depends: python3, python3-pyqt5, python3-sample-sdk, ${misc:Depends}
+Description: Sample PyQt5 application using the Sample SDK
+ Desktop application that displays the SDK version on a colour screen.

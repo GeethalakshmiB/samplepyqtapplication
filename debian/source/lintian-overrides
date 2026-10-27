@@ -1,0 +1,2 @@
+# The SDK is intentionally distributed as prebuilt binaries only.
+sample-sdk source: source-is-missing SDk/lib/*

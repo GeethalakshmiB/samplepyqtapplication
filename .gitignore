@@ -1,0 +1,5 @@
+# Packaging branch: only debian/ is tracked. Upstream files come from master
+# via the orig tarball.
+/*
+!/.gitignore
+!/debian/

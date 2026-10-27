@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Sample PyQt App
+Comment=Display the Sample SDK version
+Exec=sample-pyqt-app
+Icon=applications-system
+Terminal=false
+Categories=Utility;

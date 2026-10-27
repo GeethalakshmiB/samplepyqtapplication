@@ -1,0 +1,8 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: sample-sdk
+Source: https://github.com/GeethalakshmiB/samplepyqtapplication
+
+Files: *
+Copyright: 2026 e-con Systems
+License: proprietary
+ All rights reserved. The SDK is distributed in binary form only.

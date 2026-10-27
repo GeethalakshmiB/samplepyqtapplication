@@ -1,0 +1,2 @@
+# Prebuilt library; libc is pulled in through libstdc++.
+libsdk1: library-not-linked-against-libc usr/lib/x86_64-linux-gnu/libsdk.so.1.0.0.0
