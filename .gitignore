@@ -1,0 +1,8 @@
+# SDk: publish only the public header and the prebuilt libraries.
+SDk/*
+!SDk/include/
+!SDk/lib/
+
+__pycache__/
+*.pyc
+.qodo/
